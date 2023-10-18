@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Subir y Listar Archivos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        label {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        label:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <h2>Subir y Listar Archivos</h2>
+    <div class="container">
+        <h3>Subir Archivos</h3>
+        <input type="file" id="fileInput" accept=".pdf, .doc, .txt, .jpg, .png" />
+        <label for="fileInput">Seleccionar Archivo</label>
+        <div id="fileList">
+            <h3>Archivos Cargados</h3>
+            <table>
+                <tr>
+                    <th>Nombre</th>
+                    <th>URL</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const fileList = document.querySelector('#fileList table');
+
+        fileInput.addEventListener('change', function () {
+            const files = fileInput.files;
+
+            for (const file of files) {
+                const newRow = fileList.insertRow();
+                const cell1 = newRow.insertCell(0);
+                const cell2 = newRow.insertCell(1);
+
+                cell1.textContent = file.name;
+                const fileURL = URL.createObjectURL(file);
+                cell2.innerHTML = `<a href="${fileURL}" target="_blank">Ver Archivo</a>`;
+            }
+        });
+    </script>
+</body>
+</html>
